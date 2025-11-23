@@ -1,0 +1,10 @@
+<h2>{{ request.user.username }}님의 Todo List</h2>
+
+<ul>
+    {% for todo in todos %}
+        <li>{{ todo.title }} - (완료: {{ todo.completed }})</li>
+    {% endfor %}
+</ul>
+
+<a href="{% url 'add_todo' %}">할 일 추가</a>
+
