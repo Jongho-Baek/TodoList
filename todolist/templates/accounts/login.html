@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <title>로그인</title>
+</head>
+<body>
+    
+    <h1>🔑 로그인</h1>
+
+    <form method="post">
+        {% csrf_token %}
+        
+        {{ form.as_p }}
+        
+        {% if form.errors %}
+            <p style="color: red;">아이디 또는 비밀번호가 올바르지 않습니다.</p>
+        {% endif %}
+
+        <button type="submit">로그인</button>
+    </form>
+
+    <hr>
+    
+    <p>아직 계정이 없으신가요? <a href="{% url 'accounts:signup' %}">회원가입</a></p>
+
+</body>
+</html>

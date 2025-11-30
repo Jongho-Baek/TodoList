@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <title>
+        {% if form.instance.pk %}
+            할 일 수정
+        {% else %}
+            새 할 일 추가
+        {% endif %}
+    </title>
+</head>
+<body>
+    
+    <h1>
+        {% if form.instance.pk %}
+            ✏️ 할 일 수정하기
+        {% else %}
+            ➕ 새로운 할 일 추가하기
+        {% endif %}
+    </h1>
+
+    <form method="post">
+        {% csrf_token %}
+        
+        {{ form.as_p }}
+
+        <button type="submit">
+            {% if form.instance.pk %}
+                수정 완료
+            {% else %}
+                추가하기
+            {% endif %}
+        </button>
+    </form>
+
+    <p style="margin-top: 20px;">
+        <a href="{% url 'accounts:list' %}">목록으로 돌아가기</a>
+    </p>
+
+</body>
+</html>

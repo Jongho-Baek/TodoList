@@ -1,0 +1,58 @@
+{% comment %}
+    TodoListView에서 전달받은 'todos' 리스트와 'user' 객체(request.user) 사용
+{% endcomment %}
+
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <title>{{ request.user.username }}님의 Todo List</title>
+</head>
+<body>
+    
+    <h1>👋 {{ request.user.username }}님, 할 일을 관리하세요!</h1>
+    
+    <p>
+        <form method="post" action="{% url 'accounts:logout' %}">
+    		{% csrf_token %} 
+    	<button type="submit" style="border: none; background: none; color: blue; cursor: pointer; text-decoration: underline;">
+        	로그아웃
+    	</button>
+	</form>
+    </p>
+
+    <hr>
+    
+    <h2>📋 Todo List</h2>
+    
+    <p>
+        <a href="{% url 'accounts:create' %}" style="font-weight: bold; color: green;">➕ 새로운 할 일 추가</a>
+    </p>
+
+    {% if todos %}
+        <ul style="list-style: none; padding: 0;">
+        {% for todo in todos %}
+            <li style="margin-bottom: 10px; border: 1px solid #eee; padding: 10px;">
+                
+                <input type="checkbox" {% if todo.is_completed %}checked{% endif %} disabled>
+                
+                <strong>{{ todo.title }}</strong> 
+                {% if todo.description %}
+                    <span style="color: #666;"> - {{ todo.description|truncatechars:50 }}</span>
+                {% endif %}
+                
+                <small style="color: gray;">(등록일: {{ todo.created_at|date:"Y.m.d" }})</small>
+                
+                <span style="float: right;">
+                    <a href="{% url 'accounts:update' pk=todo.pk %}">[수정]</a>
+                    <a href="{% url 'accounts:delete' pk=todo.pk %}">[삭제]</a>
+                </span>
+            </li>
+        {% endfor %}
+        </ul>
+    {% else %}
+        <p>현재 등록된 할 일이 없습니다. 지금 바로 새로운 할 일을 추가하세요!</p>
+    {% endif %}
+
+</body>
+</html>
