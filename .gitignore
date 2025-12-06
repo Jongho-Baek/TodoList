@@ -3,11 +3,13 @@ venv/
 __pycache__/
 *.pyc
 
-# Django-specific files
+# Django generated files
 *.log
 *.sqlite3
-db.sqlite3 # 데이터베이스 파일
-/staticfiles/ # collectstatic으로 모은 정적 파일
+db.sqlite3
+
+# 🚨 [추가]: collectstatic으로 생성된 폴더 전체를 무시
+/todolist/staticfiles/ 
 
 # OS Generated Files
 .DS_Store
