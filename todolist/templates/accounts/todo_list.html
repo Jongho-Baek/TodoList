@@ -1,58 +1,67 @@
-{% comment %}
-    TodoListView에서 전달받은 'todos' 리스트와 'user' 객체(request.user) 사용
-{% endcomment %}
-
 <!DOCTYPE html>
 <html lang="ko">
 <head>
     <meta charset="UTF-8">
-    <title>{{ request.user.username }}님의 Todo List</title>
+    <title>할 일 목록</title>
+    
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'accounts/styles.css' %}">
 </head>
 <body>
-    
-    <h1>👋 {{ request.user.username }}님, 할 일을 관리하세요!</h1>
-    
-    <p>
-        <form method="post" action="{% url 'accounts:logout' %}">
-    		{% csrf_token %} 
-    	<button type="submit" style="border: none; background: none; color: blue; cursor: pointer; text-decoration: underline;">
-        	로그아웃
-    	</button>
-	</form>
-    </p>
+    <div class="todo-list-container">
+        
+        <div class="user-info clearfix">
+            {% if user.is_authenticated %}
+                <span>환영합니다, <strong>{{ user.username }}</strong>님!</span>
+                
+                <form action="{% url 'accounts:logout' %}" method="post" style="display: inline;">
+                    {% csrf_token %}
+                    <button type="submit" style="background: none; border: none; color: #007bff; cursor: pointer; padding: 0; font-size: inherit;">
+                        로그아웃
+                    </button>
+                </form>
 
-    <hr>
-    
-    <h2>📋 Todo List</h2>
-    
-    <p>
-        <a href="{% url 'accounts:create' %}" style="font-weight: bold; color: green;">➕ 새로운 할 일 추가</a>
-    </p>
+            {% else %}
+                <a href="{% url 'accounts:login' %}">로그인</a>
+            {% endif %}
+        </div>
+        
+        <h1>나의 할 일 목록</h1>
+        
+        <a href="{% url 'accounts:create' %}" class="add-button">새 할 일 추가하기</a>
 
-    {% if todos %}
-        <ul style="list-style: none; padding: 0;">
-        {% for todo in todos %}
-            <li style="margin-bottom: 10px; border: 1px solid #eee; padding: 10px;">
-                
-                <input type="checkbox" {% if todo.is_completed %}checked{% endif %} disabled>
-                
-                <strong>{{ todo.title }}</strong> 
-                {% if todo.description %}
-                    <span style="color: #666;"> - {{ todo.description|truncatechars:50 }}</span>
-                {% endif %}
-                
-                <small style="color: gray;">(등록일: {{ todo.created_at|date:"Y.m.d" }})</small>
-                
-                <span style="float: right;">
-                    <a href="{% url 'accounts:update' pk=todo.pk %}">[수정]</a>
-                    <a href="{% url 'accounts:delete' pk=todo.pk %}">[삭제]</a>
-                </span>
-            </li>
-        {% endfor %}
-        </ul>
-    {% else %}
-        <p>현재 등록된 할 일이 없습니다. 지금 바로 새로운 할 일을 추가하세요!</p>
-    {% endif %}
+        {% if todos %}
+            <table class="todo-table">
+                <thead>
+                    <tr>
+                        <th>제목</th>
+                        <th>설명</th>
+                        <th>완료</th>
+                        <th>생성일</th>
+                        <th>관리</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for todo in todos %}
+                        <tr class="{% if todo.is_completed %}completed{% endif %}">
+                            <td>{{ todo.title }}</td>
+                            <td>{{ todo.description|truncatechars:50 }}</td>
+                            <td>
+                                <input type="checkbox" class="status-checkbox" disabled {% if todo.is_completed %}checked{% endif %}>
+                            </td>
+                            <td>{{ todo.created_at|date:"Y-m-d" }}</td>
+                            <td>
+                                <a href="{% url 'accounts:update' pk=todo.pk %}" style="color: #007bff;">수정</a> |
+                                <a href="{% url 'accounts:delete' pk=todo.pk %}" style="color: #dc3545;">삭제</a>
+                            </td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        {% else %}
+            <p style="text-align: center; margin-top: 40px; color: #6c757d;">아직 등록된 할 일이 없습니다. 지금 바로 새로운 할 일을 추가해 보세요!</p>
+        {% endif %}
 
+    </div>
 </body>
 </html>

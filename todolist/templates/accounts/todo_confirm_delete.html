@@ -2,21 +2,32 @@
 <html lang="ko">
 <head>
     <meta charset="UTF-8">
-    <title>삭제 확인</title>
+    <title>할 일 삭제 확인</title>
+    
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'accounts/styles.css' %}">
 </head>
 <body>
-    
-    <h1>⚠️ 할 일 삭제 확인</h1>
-
-    <p>정말로 다음 할 일을 삭제하시겠습니까? <br>
-    <strong>"{{ object.title }}"</strong></p>
-
-    <form method="post">
-        {% csrf_token %}
-        <button type="submit" style="background-color: red; color: white; padding: 10px;">예, 삭제합니다</button>
+    <div class="form-container delete-container">
         
-        <a href="{% url 'accounts:list' %}" style="margin-left: 15px;">취소</a>
-    </form>
+        <div class="clearfix" style="margin-bottom: 20px;">
+            <button onclick="history.back()" class="back-button">
+                ←
+            </button>
+        </div>
+        
+        <h1> 할 일 삭제</h1>
+        
+        <p style="text-align: center; font-size: 1.1em; margin-bottom: 30px; color: #dc3545;">
+            정말로 **"{{ todo.title }}"** 할 일을 삭제하시겠습니까?
+        </p>
 
+        <form method="post" style="text-align: center;">
+            {% csrf_token %}
+            
+            <button type="submit" class="delete-confirm-button">삭제</button>
+        </form>
+
+    </div>
 </body>
 </html>

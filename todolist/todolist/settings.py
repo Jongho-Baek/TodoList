@@ -24,7 +24,6 @@ SECRET_KEY = 'django-insecure-4%^wob&1r$(jn@0=k^33ko40+*bgp-zyfemj6)aq6-zv-0tjo#
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
-
 ALLOWED_HOSTS = []
 
 LOGIN_REDIRECT_URL = '/list/' 
@@ -105,11 +104,12 @@ AUTH_PASSWORD_VALIDATORS = [
 # Internationalization
 # https://docs.djangoproject.com/en/5.2/topics/i18n/
 
-LANGUAGE_CODE = 'en-us'
+LANGUAGE_CODE = 'ko-kr'
+USE_I18N = True
+USE_L10N = True
 
 TIME_ZONE = 'UTC'
 
-USE_I18N = True
 
 USE_TZ = True
 
@@ -117,8 +117,21 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/5.2/howto/static-files/
 
+# settings.py
+
+# BASE_DIR 정의가 이미 되어 있다고 가정
+
+# settings.py
+
 STATIC_URL = 'static/'
 
+STATICFILES_DIRS = [
+    BASE_DIR / 'static', 
+]
+
+# 🚨 [추가/수정]: collectstatic 명령을 위해 STATIC_ROOT를 반드시 설정해야 합니다.
+# 이 폴더는 모든 정적 파일이 최종적으로 모이는 경로입니다.
+STATIC_ROOT = BASE_DIR / 'staticfiles' # 'staticfiles'라는 폴더를 프로젝트 루트에 생성하도록 지정
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.2/ref/settings/#default-auto-field
 

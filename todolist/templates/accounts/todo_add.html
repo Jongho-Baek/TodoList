@@ -3,22 +3,32 @@
 <head>
     <meta charset="UTF-8">
     <title>새 할 일 추가</title>
+    
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'accounts/styles.css' %}">
 </head>
 <body>
-    
-    <h1> 새로운 할 일 추가하기</h1>
-
-    <form method="post">
-        {% csrf_token %}
+    <div class="form-container"> 
         
-        {{ form.as_p }}
+        <div class="clearfix" style="margin-bottom: 20px;">
+            <button onclick="history.back()" class="back-button">
+                ←
+            </button>
+        </div>
+        
+        <h1> 새로운 할 일 추가하기</h1>
 
-        <button type="submit">추가하기</button>
-    </form>
+        <form method="post">
+            {% csrf_token %}
+            
+            {{ form.as_p }}
 
-    <p style="margin-top: 20px;">
-        <a href="{% url 'accounts:list' %}">목록으로 돌아가기</a>
-    </p>
+            <button type="submit">추가하기</button>
+        </form>
 
+        <p style="text-align: center; margin-top: 25px;">
+            <a href="{% url 'accounts:list' %}" style="color: #6c757d; text-decoration: none;">목록으로 돌아가기</a>
+        </p>
+    </div>
 </body>
 </html>

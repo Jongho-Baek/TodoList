@@ -3,26 +3,32 @@
 <head>
     <meta charset="UTF-8">
     <title>로그인</title>
+    
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'accounts/styles.css' %}">
 </head>
 <body>
-    
-    <h1>🔑 로그인</h1>
-
-    <form method="post">
-        {% csrf_token %}
+    <div class="form-container">
         
-        {{ form.as_p }}
+        <h1>🔑 로그인</h1>
+
+        <form method="post">
+            {% csrf_token %}
+            
+            {{ form.as_p }}
+            
+            {% if form.errors %}
+                <p class="errorlist" style="margin-top: -10px;">아이디 또는 비밀번호가 올바르지 않습니다.</p>
+            {% endif %}
+
+            <button type="submit" style="margin-bottom: 15px;">로그인</button>
+        </form>
         
-        {% if form.errors %}
-            <p style="color: red;">아이디 또는 비밀번호가 올바르지 않습니다.</p>
-        {% endif %}
-
-        <button type="submit">로그인</button>
-    </form>
-
-    <hr>
-    
-    <p>아직 계정이 없으신가요? <a href="{% url 'accounts:signup' %}">회원가입</a></p>
-
+        <hr>
+        
+        <p style="text-align: center; margin-top: 20px;">
+            아직 계정이 없으신가요? <a href="{% url 'accounts:signup' %}" style="color: #007bff; text-decoration: none; font-weight: bold;">회원가입</a>
+        </p>
+    </div>
 </body>
 </html>

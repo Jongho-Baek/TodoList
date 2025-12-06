@@ -1,14 +1,15 @@
-# Python
+# Python Virtual Environment
+venv/
 __pycache__/
 *.pyc
 
-# Django
-db.sqlite3
+# Django-specific files
+*.log
+*.sqlite3
+db.sqlite3 # 데이터베이스 파일
+/staticfiles/ # collectstatic으로 모은 정적 파일
 
-# Environment
-venv/
-.env
-
-# VSCode
+# OS Generated Files
+.DS_Store
 .vscode/
-
+.idea/

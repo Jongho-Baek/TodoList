@@ -1,0 +1,293 @@
+/* accounts/static/accounts/styles.css */
+
+/* --- 1. 기본/폼 공통 스타일 --- */
+
+/* 기본 스타일 초기화 및 폰트 설정 */
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f4f7f6; /* 연한 회색 배경 */
+    display: flex;
+    justify-content: center; /* 수평 중앙 정렬 */
+    align-items: center;   /* 수직 중앙 정렬 (list 페이지에서는 margin으로 대체) */
+    min-height: 100vh;
+    margin: 0;
+}
+/* 폼 컨테이너: 카드 모양의 중앙 정렬 박스 (회원가입/로그인/Todo 생성 폼) */
+.form-container {
+    background-color: #ffffff;
+    padding: 30px 40px;
+    border-radius: 8px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1); /* 은은한 그림자 */
+    width: 100%;
+    max-width: 400px; /* 폼에 적합한 최대 너비 */
+    /* body의 align-items를 덮어쓰기 위해 list 페이지에서는 margin을 사용할 수 있습니다. */
+}
+h1, h2 {
+    text-align: center;
+    color: #333;
+    margin-bottom: 25px;
+    border-bottom: 2px solid #007bff; /* 제목 아래 파란색 구분선 */
+    padding-bottom: 10px;
+}
+/* Django 폼 필드 스타일링 ({{ form.as_p }}에 의해 <p> 태그로 렌더링됨) */
+p {
+    margin-bottom: 20px;
+}
+label {
+    display: block;
+    font-weight: bold;
+    color: #555;
+    margin-bottom: 5px;
+}
+input[type="text"],
+input[type="password"] {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box; /* 패딩이 전체 너비에 포함되도록 */
+    font-size: 16px;
+}
+/* [추가]: 체크박스와 라디오 버튼이 100% 너비를 가지지 않도록 재설정 (Todo 폼 대응) */
+input[type="checkbox"],
+input[type="radio"] {
+    width: auto; 
+    padding: 0;
+    margin: 0;
+    box-sizing: content-box;
+}
+/* [추가]: 체크박스 레이블이 인라인으로 표시되도록 조정 (Todo 폼 대응) */
+p label[for$="is_completed"] {
+    display: inline-block;
+    margin-right: 10px;
+}
+
+/* 도움말 텍스트 (help_text) 스타일링 */
+.helptext {
+    display: block;
+    font-size: 12px;
+    color: #888;
+    margin-top: 5px;
+    line-height: 1.4;
+}
+/* 오류 메시지 스타일링 */
+ul.errorlist {
+    color: #dc3545; /* 붉은색 오류 텍스트 */
+    list-style: none;
+    padding: 0;
+    margin: 5px 0 0 0;
+    font-size: 14px;
+}
+/* 비밀번호 유효성 검사 목록을 강제로 숨깁니다. */
+.form-container p ul {
+    display: none !important; 
+}
+
+/* 주 버튼 (가입, 로그인, 추가하기) 스타일링 */
+button[type="submit"] {
+    width: 100%;
+    padding: 12px;
+    background-color: #007bff; /* 파란색 배경 */
+    color: white;
+    border: none;
+    border-radius: 4px;
+    font-size: 18px;
+    cursor: pointer;
+    margin-top: 20px;
+    transition: background-color 0.3s ease;
+}
+button[type="submit"]:hover {
+    background-color: #0056b3;
+}
+
+/* 뒤로가기 버튼 스타일링 */
+.back-button {
+    padding: 8px 15px;
+    background-color: #6c757d; /* 회색 배경 */
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    float: left; /* 왼쪽 정렬 */
+    transition: background-color 0.3s ease;
+}
+
+.back-button:hover {
+    background-color: #5a6268;
+}
+
+/* 플로팅 요소 뒤의 레이아웃 정리 */
+.clearfix::after {
+    content: "";
+    clear: both;
+    display: table;
+}
+
+/* --- 2. Todo List 전용 스타일 --- */
+
+.todo-list-container {
+    background-color: #ffffff;
+    padding: 30px;
+    border-radius: 8px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    width: 100%;
+    max-width: 800px; /* 목록에 적합한 더 넓은 너비 */
+    margin: 30px auto; /* 중앙 정렬을 위해 body의 flex를 덮어쓰고 마진 사용 */
+}
+
+/* 제목은 공통 H1 스타일을 사용 */
+
+.todo-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+}
+
+.todo-table th, .todo-table td {
+    padding: 12px 15px;
+    text-align: left;
+    border-bottom: 1px solid #ddd;
+}
+
+.todo-table th {
+    background-color: #f8f9fa;
+    color: #495057;
+    font-weight: bold;
+}
+
+/* 완료된 항목 스타일 */
+.completed {
+    text-decoration: line-through;
+    color: #6c757d; 
+    background-color: #f1f1f1;
+}
+
+/* 완료 상태 체크박스 */
+.status-checkbox {
+    transform: scale(1.2); 
+}
+
+/* 추가하기 버튼 스타일 */
+.add-button {
+    display: inline-block;
+    padding: 10px 20px;
+    background-color: #28a745; /* 녹색 버튼 */
+    color: white;
+    text-decoration: none;
+    border-radius: 4px;
+    font-weight: bold;
+    transition: background-color 0.3s;
+    margin-bottom: 20px;
+}
+
+.add-button:hover {
+    background-color: #1e7e34;
+}
+
+/* 로그인/로그아웃/환영 메시지 스타일 */
+.user-info {
+    text-align: right;
+    margin-bottom: 15px;
+}
+
+.user-info a {
+    color: #007bff;
+    text-decoration: none;
+    margin-left: 10px;
+}
+
+/* H1 제목 위치를 폼 컨테이너 상단에 배치하고 구분선을 명확히 합니다. */
+.form-container h1 {
+    text-align: center;
+    color: #333;
+    margin-top: 0; /* 제목 위쪽 마진 제거 */
+    margin-bottom: 25px;
+    border-bottom: 2px solid #007bff; /* 파란색 구분선 */
+    padding-bottom: 10px;
+}
+
+/* Django 폼 필드 스타일링 ({{ form.as_p }}에 의해 <p> 태그로 렌더링됨) */
+p {
+    margin-bottom: 15px; /* 필드 간격 조정 */
+}
+label {
+    display: block;
+    font-weight: bold;
+    color: #555;
+    margin-bottom: 5px;
+}
+/* 텍스트 입력 필드 스타일 (Title 등) */
+input[type="text"],
+input[type="password"] {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+    font-size: 16px;
+}
+
+/* [추가]: Description 필드(Textarea) 스타일링 */
+textarea {
+    width: 100%;
+    height: 150px; /* 적절한 높이 설정 */
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+    font-size: 16px;
+    resize: vertical; /* 수직 크기 조정만 허용 */
+}
+
+/* [추가]: "목록으로 돌아가기" 링크 스타일 개선 */
+.form-container p a {
+    color: #6c757d; /* 회색 텍스트 */
+    text-decoration: none;
+    font-weight: normal;
+    transition: color 0.3s;
+}
+
+.form-container p a:hover {
+    color: #007bff; /* 호버 시 파란색 */
+}
+
+/* [수정]: 주 버튼 (추가하기) 스타일 */
+button[type="submit"] {
+    width: 30%; /* 버튼 너비를 좁게 만듭니다. */
+    max-width: 150px;
+    padding: 10px;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    font-size: 16px;
+    cursor: pointer;
+    margin-top: 20px;
+    transition: background-color 0.3s ease;
+    display: block; /* 블록 요소로 만들어 중앙 정렬 준비 */
+    margin: 20px auto 10px auto; /* 중앙 정렬 */
+}
+
+/* [수정]: 뒤로가기 버튼 위치 조정 및 clearfix 제거 */
+/* 뒤로가기 버튼을 제목 옆에 배치하고 싶다면 아래 스타일을 사용합니다. */
+.back-button {
+    /* float: left; 제거 */
+    position: absolute; /* 절대 위치 사용 */
+    top: 30px; 
+    left: 30px;
+    padding: 8px 15px;
+    background-color: #f8f9fa; /* 배경을 컨테이너와 구분되도록 밝게 설정 */
+    color: #495057;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    font-weight: bold;
+    z-index: 10;
+}
+
+.form-container {
+    /* [수정]: absolute position을 위해 relative 설정 */
+    position: relative; 
+    /* ... (나머지 form-container 스타일 유지) ... */
+}

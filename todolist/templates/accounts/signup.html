@@ -1,7 +1,29 @@
-<h2>회원가입</h2>
-<form method="post">
-    {% csrf_token %}
-    {{ form.as_p }}
-    <button type="submit">가입</button>
-</form>
-
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <title>회원가입</title>
+    
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'accounts/styles.css' %}">
+</head>
+<body>
+    <div class="form-container">
+        
+        <div style="margin-bottom: 20px;">
+            <button onclick="history.back()" style="padding: 8px 15px; background-color: #6c757d; color: white; border: none; border-radius: 4px; cursor: pointer; float: left;">
+                ← 뒤로가기
+            </button>
+            <div style="clear: both;"></div>
+        </div>
+        <h2>회원가입</h2>
+        <form method="post">
+            {% csrf_token %}
+            
+            {{ form.as_p }}
+            
+            <button type="submit">가입</button>
+        </form>
+    </div>
+</body>
+</html>

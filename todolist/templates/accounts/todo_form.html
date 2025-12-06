@@ -9,34 +9,44 @@
             새 할 일 추가
         {% endif %}
     </title>
+    
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'accounts/styles.css' %}">
 </head>
 <body>
-    
-    <h1>
-        {% if form.instance.pk %}
-            ✏️ 할 일 수정하기
-        {% else %}
-            ➕ 새로운 할 일 추가하기
-        {% endif %}
-    </h1>
-
-    <form method="post">
-        {% csrf_token %}
+    <div class="form-container">
         
-        {{ form.as_p }}
-
-        <button type="submit">
+        <div class="clearfix" style="margin-bottom: 20px;">
+            <button onclick="history.back()" class="back-button">
+                ←
+            </button>
+        </div>
+        
+        <h1>
             {% if form.instance.pk %}
-                수정 완료
+                ✏️ 할 일 수정하기
             {% else %}
-                추가하기
+                ➕ 새로운 할 일 추가하기
             {% endif %}
-        </button>
-    </form>
+        </h1>
 
-    <p style="margin-top: 20px;">
-        <a href="{% url 'accounts:list' %}">목록으로 돌아가기</a>
-    </p>
+        <form method="post">
+            {% csrf_token %}
+            
+            {{ form.as_p }}
 
+            <button type="submit">
+                {% if form.instance.pk %}
+                    수정 완료
+                {% else %}
+                    추가하기
+                {% endif %}
+            </button>
+        </form>
+
+        <p style="text-align: center; margin-top: 25px;">
+            <a href="{% url 'accounts:list' %}" style="color: #6c757d; text-decoration: none;">목록으로 돌아가기</a>
+        </p>
+    </div>
 </body>
 </html>
