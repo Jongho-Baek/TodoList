@@ -52,7 +52,6 @@ sudo systemctl enable docker
 
 터미널에서 다음 명령어를 실행하여 GitHub 저장소에서 프로젝트를 로컬로 복사합니다.
 
-```bash
 # 깃허브 저장소에서 클론
 git clone https://github.com/Jongho-Baek/TodoList.git
 
