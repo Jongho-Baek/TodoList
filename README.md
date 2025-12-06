@@ -39,7 +39,7 @@
 * **Docker 및 Docker Compose:** 애플리케이션 실행 환경을 구축하기 위해 필요합니다.
 
 ## 우분투에서 Docker Compose 설치
-```bash
+
 # Docker Engine 및 Docker Compose 패키지를 한 번에 설치합니다.
 sudo apt update
 sudo apt install docker.io docker-compose -y
@@ -58,9 +58,12 @@ git clone https://github.com/Jongho-Baek/TodoList.git
 # 프로젝트 디렉토리로 이동
 cd TodoList/todolist/
 
-```bash
+
 # Docker 이미지 빌드 및 컨테이너 실행 명령어
 docker compose up --build
 
 # 접속 주소
 http://127.0.0.1:8000
+
+# Docker 종료 명령어
+docker compose down
